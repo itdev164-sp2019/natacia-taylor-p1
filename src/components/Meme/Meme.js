@@ -1,7 +1,11 @@
 import React from 'react';
 import { Modal, ModalHeader, ModalBody, FormGroup, Label} from 'reactstrap';
 import styled from 'styled-components'
-import {Button, Card, Heading } from 'rebass'
+import {Button } from 'rebass'
+import {Edit} from 'styled-icons/boxicons-solid/Edit'
+
+
+
 const photos = [
   { src: '/images/vict-baby.png' },
   { src: '/images/ned.jpeg' },
@@ -36,11 +40,15 @@ const initialState = {
   bottomX: "50%",
   bottomY: "90%"
 }
-const img = styled.img`
-  width: "100%";
-  cursor: "pointer";
-  height: "100%";
+const Head = styled.h1`
+  text-align: center;
 `;
+const SmallEdit = styled(Edit)`
+  color: red;
+  width: 30px;
+  height: 30px;
+`
+
 class Meme extends React.Component {
   constructor() {
     super();
@@ -180,13 +188,12 @@ class Meme extends React.Component {
     return (
       <div>
         <div className="topbar">
-            <Heading href="/" color='magenta'>Make-a-Meme</Heading>
+            <Head href="/" ><SmallEdit/> Make-a-Meme <SmallEdit/></Head>
             </div>
         <div className="main-content">
-          <Card className="content">
+          <div className="content">
             {photos.map((image, index) => (
               <div className="image-holder" key={image.src}>
-                <span className="meme-top-caption">Top text</span>
                 <img
                   style={{
                     width: "100%",
@@ -198,14 +205,13 @@ class Meme extends React.Component {
                   onClick={() => this.openImage(index)}
                   role="presentation"
                 />
-              <span className="meme-bottom-caption">Bottom text</span>
               </div>
             ))}
-          </Card>
+          </div>
           
         </div>
         <Modal className="meme-gen-modal" isOpen={this.state.modalIsOpen}>
-          <ModalHeader toggle={this.toggle}>Make-a-Meme</ModalHeader>
+          <ModalHeader toggle={this.toggle}><Head>Make-a-Meme</Head></ModalHeader>
           <ModalBody>
             <svg
               width={newWidth}
@@ -245,13 +251,16 @@ class Meme extends React.Component {
             </svg>
             <div className="meme-form">
               <FormGroup>
-                <Label for="toptext">Top Text</Label>
+                <Label for="toptext">Top Text </Label>
                 <input className="form-control" type="text" name="toptext" id="toptext" placeholder="Add text to the top" onChange={this.changeText} />
               </FormGroup>
+              <br/>
               <FormGroup>
-                <Label for="bottomtext">Bottom Text</Label>
+                
+                <Label for="bottomtext">Bottom Text </Label>
                 <input className="form-control" type="text" name="bottomtext" id="bottomtext" placeholder="Add text to the bottom" onChange={this.changeText} />
               </FormGroup>
+              <br/>
               <Button onClick={() => this.convertSvgToImage()} bg='magenta'>Download Meme!</Button>
             </div>
           </ModalBody>
